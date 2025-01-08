@@ -5,6 +5,7 @@ package educasturangelgm73.biblioteca2025;
  *
  * @author alu10d
  */
+
 public class Libro {
     private String isbn;
     private String autor;

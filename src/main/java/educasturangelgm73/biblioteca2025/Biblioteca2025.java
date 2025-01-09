@@ -140,7 +140,7 @@ public class Biblioteca2025 {
                     break;
                 }    
                 case 2:{
-                    eliminarPrestamo();
+                    devolverPrestamo();
                     break;
                 } 
                 case 3:{
@@ -209,9 +209,9 @@ public class Biblioteca2025 {
         }
     }
 
-    private void eliminarPrestamo() {
+    private void devolverPrestamo() {
+        
     }
-
     private void modificarPrestamo() {
     }
 

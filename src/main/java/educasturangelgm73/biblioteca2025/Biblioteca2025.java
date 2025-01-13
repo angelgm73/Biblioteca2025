@@ -10,8 +10,8 @@ import java.util.Scanner;
 
 
 /**
- * Este es el proyecto de la biblioteca
- * @author eduardo
+ * Proyecto biblio epica
+ * @author angel
  */
 public class Biblioteca2025 {
  
@@ -98,7 +98,6 @@ public class Biblioteca2025 {
             System.out.println("\n\n\n\n\n\t\t\t\tUSUARIOS");
             System.out.println("\t\t\t\t1 - NUEVO USUARIO");
             System.out.println("\t\t\t\t2 - ELIMINAR USUARIO");
-            System.out.println("\t\t\t\t3 - MODIFICAR USUARIO");
             System.out.println("\t\t\t\t4 - LISTADOS");
             System.out.println("\t\t\t\t9 - SALIR");
             opcion=sc.nextInt();
@@ -130,7 +129,6 @@ public class Biblioteca2025 {
             System.out.println("\n\n\n\n\n\t\t\t\tPRESTAMOS\n");
             System.out.println("\t\t\t\t1 - NUEVO PRESTAMO");
             System.out.println("\t\t\t\t2 - ELIMINAR PRESTAMO");
-            System.out.println("\t\t\t\t3 - MODIFICAR PRESTAMO");
             System.out.println("\t\t\t\t4 - LISTADOS");
             System.out.println("\t\t\t\t9 - SALIR");
             opcion=sc.nextInt();
@@ -157,15 +155,83 @@ public class Biblioteca2025 {
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="GESTION LIBROS">
-    private void nuevoLibro() {
+     private void nuevoLibro() {
+         Scanner sc=new Scanner(System.in);           
+        System.out.println("Nuevo libro:");
+        System.out.println("ISBN: ");
+        String isbn= sc.nextLine();
+        System.out.println("Título: ");
+        String titulo=sc.nextLine();
+        System.out.println("Autor: ");
+        String autor=sc.nextLine();
+        System.out.println("Género:");
+        String genero=sc.nextLine();
+        System.out.println("Ejemplares");
+        int ejemplares=sc.nextInt();
+        
+           System.out.println(new Libro(isbn,titulo,autor,genero,ejemplares));
+       libros.add(new Libro(isbn,titulo,autor,genero,ejemplares));
     }
 
     private void eliminarLibro() {
+           Scanner sc=new Scanner(System.in);  
+        System.out.println("ISBN del libro a eliminar");
+        String isbn= sc.nextLine();
+        
+        int pos= buscaIsbn(isbn);
+        if(pos==-1){
+            System.out.println("El libro que buscas no esta registrado");
+        }else{
+            System.out.println("Esta seguro de que desea borrar el libro?");
+            System.out.println("Si o no");
+            String confirmacion = sc.nextLine();
+            if (confirmacion.equalsIgnoreCase("si")){
+                System.out.println("El libro ha sido eliminado");
+                libros.remove(pos);
+            }else{
+                System.out.println("Operacion cancelada con exito");
+            }
+            
+        }
     }
 
     private void modificarLibros() {
+            Scanner sc=new Scanner(System.in); 
+        System.out.println("Dime el ISBN del libro que quieres modificar: ");
+        String isbn= sc.nextLine();
+        
+        int pos= buscaIsbn(isbn);
+        if (pos==-1) {
+            System.out.println("El libro que buscas no esta registrado");
+        } else {
+            System.out.println("Pulsa + si quieres aumentar el número de ejemplares o - si quieres disminuir la cantidad de estos");
+            String confirm= sc.nextLine();
+            if (confirm.equals("+")) {
+                 if (confirm.equals("+")) {
+                System.out.println("¿Cuantos ejemplares quieres añadir?");
+                int mas= sc.nextInt();
+                int ejemplar= libros.get(pos).getEjemplares();
+                int calculo2= ejemplar + mas;  
+                libros.get(pos).setEjemplares(calculo2);
+                System.out.println("Operacion realizada con exito");
+            } 
+                else if (confirm.equals("-")) {
+                System.out.println("¿Cuantos ejemplares quieres quitar?");
+                int menos=sc.nextInt();
+                int ejemplar= libros.get(pos).getEjemplares();
+                int calculo2= ejemplar - menos; 
+                libros.get(pos).setEjemplares(calculo2);
+                System.out.println("Operacion realizada con exito");
+          
+            }
+            } else {
+                     System.out.println("No se ha detectado ningun simbolo +/-");
+            }
+           
+          
+        }
     }
-
+    
     private void listaLibros() {
         for (Libro l : libros) {
             System.out.println(l);
@@ -210,15 +276,17 @@ public class Biblioteca2025 {
     }
 
     private void devolverPrestamo() {
-        
-    }
+    
+    }   
     private void modificarPrestamo() {
     }
 
     private void listaPrestamos() {
+        System.out.println("Prestamos activos");
         for (Prestamo p : prestamos) {
             System.out.println(p);  
         }
+       
     }
 //</editor-fold>
     

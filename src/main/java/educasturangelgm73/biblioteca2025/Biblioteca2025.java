@@ -134,6 +134,7 @@ public class Biblioteca2025 {
             System.out.println("\t\t\t\t4 - LISTADO GENERAL PRESTAMOS");
             System.out.println("\t\t\t\t5 - LISTADO PRESTAMOS USUARIO");
             System.out.println("\t\t\t\t6 - LISTADO PRESTAMOS LIBRO (USUARIOS QUE LO LEEN)");
+            System.out.println("\t\t\t\t7 - LIBRO MAS LEIDO)");
             System.out.println("\t\t\t\t9 - SALIR");
             opcion=sc.nextInt();
             switch (opcion){
@@ -161,7 +162,12 @@ public class Biblioteca2025 {
                     listaPrestamosLibro();
                     break;
                 } 
-            }
+                case 7:{
+                    librotop();
+                    break;
+                 }
+                }
+            
         }while (opcion != 9);
     }
 //</editor-fold>
@@ -532,7 +538,38 @@ public class Biblioteca2025 {
         }
         return pos;       
     }
-    
+          
+         private void librotop(){
+           ArrayList <Integer> contadoresLibro=new ArrayList();
+           int contador = 0;  
+           for (Libro l : libros) {
+                 contador= 0;
+                 for (Prestamo p:prestamos) {
+                     if(l==p.getLibroPrest())
+                         contador++;
+                   
+               }
+                    for (Prestamo p:prestamosHist) {
+                     if(l==p.getLibroPrest())
+                         contador++;
+             }
+                contadoresLibro.add(contador);
+                    
+           }
+           int posMasleido=0;
+           int max=contadoresLibro.get(0);
+             for (int i = 1; i < libros.size(); i++) {
+                if (contadoresLibro.get(i)>max){
+                    max=contadoresLibro.get(i);
+                    posMasleido=i;
+          
+                }
+                 
+             }
+             System.out.println("El libro/s mas leido/s es/son");
+             System.out.println(libros.get(posMasleido));
+         } 
 //</editor-fold>
-   //aa
+ 
+
 }
